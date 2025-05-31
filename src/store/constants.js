@@ -15,7 +15,7 @@ const constants = {
         // For compared blocks
         orange: {
             fillStyle: "#FFBF00",
-            borderStyle: "#FFA500",
+            borderStyle: "#FFFFFF",
         },
         // For pivot blocks (in heap/quick sort)
         blue: {
