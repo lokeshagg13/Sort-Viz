@@ -9,8 +9,8 @@ const constants = {
         "quick",
         "heap",
         "shell",
-    ]
-
+    ],
+    sortingOrders: ["a", "d"]
 }
 
 export default constants;

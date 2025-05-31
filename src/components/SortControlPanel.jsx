@@ -1,8 +1,9 @@
 import { useContext } from "react";
 import constants from "../store/constants";
 import BlockContext from "../store/blockContext";
+import loaderImage from "../images/loader.gif";
 
-const SortControlPanel = ({ startSimulation }) => {
+const SortControlPanel = ({ startSimulation, resetSimulation }) => {
   const blockContext = useContext(BlockContext);
 
   const submitHandler = (e) => {
@@ -22,9 +23,10 @@ const SortControlPanel = ({ startSimulation }) => {
               type="radio"
               name="sortingAlgorithm"
               value={type}
-              className="accent-green-500 scale-125"
+              className="accent-green-500 scale-125 disabled-radio"
               checked={blockContext.sortingAlgo === type}
               onChange={(e) => blockContext.changeSortingAlgo(e.target.value)}
+              disabled={blockContext.simStatus !== "ready"}
             />
             <span>{type.charAt(0).toUpperCase() + type.slice(1)} Sort</span>
           </label>
@@ -33,17 +35,27 @@ const SortControlPanel = ({ startSimulation }) => {
 
       <div className="flex flex-col gap-10 mt-6">
         <button
-          id="start"
+          id="start-btn"
           type="submit"
-          className="bg-green-600 hover:bg-green-700 text-white px-12 py-2 rounded cursor-pointer w-fit-content"
+          className="bg-green-600 hover:bg-green-700 text-white px-12 py-2 rounded cursor-pointer w-fit-content show disabled-btn"
+          disabled={blockContext.simStatus !== "ready"}
         >
           Start
         </button>
 
         <button
+          id="loading-btn"
+          type="button"
+          className="bg-green-600 px-12 rounded cursor-pointer w-fit-content disabled-btn opacity-100 hide"
+          disabled
+        >
+          <img src={loaderImage} alt="Preparing" className="w-10 h-10" />
+        </button>
+
+        <button
           id="reset"
           type="button"
-          onClick={() => window.location.reload()}
+          onClick={() => resetSimulation()}
           className="bg-blue-500 hover:bg-blue-600 text-white px-12 py-2 rounded cursor-pointer w-fit-content"
         >
           Reset

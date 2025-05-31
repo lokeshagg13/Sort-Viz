@@ -4,6 +4,7 @@ import SortControlPanel from "./SortControlPanel";
 import VizControlPanel from "./VizControlPanel";
 import ActionControlRow from "./small-screen/ActionControlRow";
 import BlockContext from "../store/blockContext";
+import SortOrderControlRow from "./large-screen/SortOrderControlRow";
 
 function MainPanel() {
   const canvasRef = useRef();
@@ -11,36 +12,32 @@ function MainPanel() {
 
   useEffect(() => {
     const canvas = canvasRef.current;
-    const resizeCanvas = () => {
+    const resizeCanvas = (defaultCall = false) => {
       canvas.width = Math.min(window.innerWidth * 0.9, 800);
       canvas.height = Math.min(window.innerHeight * 0.6, 600);
 
       const canvasCtx = canvas.getContext("2d");
       canvasCtx.fillStyle = "#000";
       canvasCtx.fillRect(0, 0, canvas.width, canvas.height);
-      blockContext.generateNewBlocks(canvas);
+      if (!defaultCall) blockContext.generateNewBlocks(canvas);
     };
-    resizeCanvas(); // Initial resize
-    window.addEventListener("resize", resizeCanvas); // Handle window resize
-    return () => window.removeEventListener("resize", resizeCanvas);
+    resizeCanvas(true); // Initial resize
+    window.addEventListener("resize", () => resizeCanvas(false)); // Handle window resize
+    return () =>
+      window.removeEventListener("resize", () => resizeCanvas(false));
   }, []);
 
   useEffect(() => {
-    const canvas = canvasRef.current;
-    blockContext.generateNewBlocks(canvas);
-  }, []);
-
-  const regenerateBlocks = () => {
-    const canvas = canvasRef.current;
-    blockContext.generateNewBlocks(canvas);
-  };
+    blockContext.generateNewBlocks(canvasRef.current);
+  }, [blockContext.numberOfBlocks]);
 
   const startSimulation = () => {
-    console.log(
-      blockContext.numberOfBlocks,
-      blockContext.speed,
-      blockContext.sortingAlgo
-    );
+    blockContext.startSimulation(canvasRef.current);
+  };
+
+  const resetSimulation = () => {
+    blockContext.resetSimulation();
+    blockContext.generateNewBlocks(canvasRef.current);
   };
 
   return (
@@ -52,15 +49,24 @@ function MainPanel() {
           className="w-full max-w-800p border-2 border-white rounded-lg"
         />
         <div className="hide md:show w-full">
-          <ActionControlRow startSimulation={startSimulation} />
+          <ActionControlRow
+            startSimulation={startSimulation}
+            resetSimulation={resetSimulation}
+          />
         </div>
         <div className="hide md:show w-full">
           <SortControlRow />
         </div>
-        <VizControlPanel regenerateBlocks={regenerateBlocks} />
+        <VizControlPanel />
+        <div className="hide md-adjusted:show-block w-full">
+          <SortOrderControlRow />
+        </div>
       </div>
       <div className="md:hide w-fit-content flex justify-center items-center px-4">
-        <SortControlPanel startSimulation={startSimulation} />
+        <SortControlPanel
+          startSimulation={startSimulation}
+          resetSimulation={resetSimulation}
+        />
       </div>
     </div>
   );
