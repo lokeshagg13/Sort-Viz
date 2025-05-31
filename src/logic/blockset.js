@@ -1,3 +1,4 @@
+import constants from "../store/constants";
 import Block from "./block";
 
 class BlockSet {
@@ -41,7 +42,7 @@ class BlockSet {
 
   drawBlocks(ctx, blockColors = []) {
     for (let i = 0; i < this.numBlocks; i++) {
-      const color = blockColors[i] || "white";
+      const color = blockColors[i] || constants.colors.white;
       this.blocks[i].draw(ctx, color);
     }
   }

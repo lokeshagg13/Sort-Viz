@@ -101,9 +101,9 @@ export function BlockContextProvider(props) {
       if (greenCounter <= numberOfBlocks) {
         let colorArray;
         if (beginFromBack) {
-          colorArray = Array(numberOfBlocks - greenCounter).fill("yellow").concat(Array(greenCounter).fill("#32CD32"));
+          colorArray = Array(numberOfBlocks - greenCounter).fill(constants.colors.yellow).concat(Array(greenCounter).fill(constants.colors.green));
         } else {
-          colorArray = Array(greenCounter).fill("#32CD32").concat(Array(numberOfBlocks - greenCounter).fill("yellow"));
+          colorArray = Array(greenCounter).fill(constants.colors.green).concat(Array(numberOfBlocks - greenCounter).fill(constants.colors.yellow));
         }
         canvasContext.clearRect(0, 0, canvas.width, canvas.height);
         lastSortSequence.drawBlocks(canvasContext, colorArray);

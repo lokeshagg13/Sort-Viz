@@ -9,8 +9,11 @@ class Block {
 
   draw(ctx, color) {
     ctx.save();
-    ctx.fillStyle = color;
+    ctx.fillStyle = color.fillStyle;
     ctx.fillRect(this.x, this.y, this.width, this.height);
+    ctx.lineWidth = 0.5;
+    ctx.strokeStyle = color.borderStyle;
+    ctx.strokeRect(this.x, this.y, this.width, this.height);
     ctx.restore();
   }
 }

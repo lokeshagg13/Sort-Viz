@@ -1,4 +1,4 @@
 node_modules
 package-lock.json
 original
-.DS-Store
+.DS_Store

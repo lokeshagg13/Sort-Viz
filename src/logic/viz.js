@@ -54,9 +54,9 @@ export function createColorArray(
     highlightPivot = false
 ) {
     const colorArray = Array.from({ length: numberOfBlocks }, (_, index) => {
-        return markedIndexArray.includes(index) ? "#FFBF00" : "yellow";
+        return markedIndexArray.includes(index) ? constants.colors.orange : constants.colors.yellow;
     });
-    if (highlightPivot) colorArray[markedIndexArray.slice(-1)[0]] = "blue";
+    if (highlightPivot) colorArray[markedIndexArray.slice(-1)[0]] = constants.colors.blue;
     return colorArray;
 }
 

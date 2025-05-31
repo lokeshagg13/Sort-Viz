@@ -25,10 +25,12 @@ function MainPanel() {
     window.addEventListener("resize", () => resizeCanvas(false)); // Handle window resize
     return () =>
       window.removeEventListener("resize", () => resizeCanvas(false));
+    // eslint-disable-next-line
   }, []);
 
   useEffect(() => {
     blockContext.generateNewBlocks(canvasRef.current);
+    // eslint-disable-next-line
   }, [blockContext.numberOfBlocks]);
 
   const startSimulation = () => {
