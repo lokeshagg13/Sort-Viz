@@ -1,13 +1,13 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App";
-import { BlockContextProvider } from "./store/blockContext";
+import { GameContextProvider } from "./store/gameContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <BlockContextProvider>
+    <GameContextProvider>
       <App />
-    </BlockContextProvider>
+    </GameContextProvider>
   </React.StrictMode>
 );
