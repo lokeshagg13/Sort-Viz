@@ -1,37 +1,77 @@
-import { useContext, useEffect } from "react";
-import BotCard from "./BotCard";
-import UserCard from "./UserCard";
-import GameContext from "../store/gameContext";
-import GameCard from "./GameCard";
+import { useContext, useEffect, useRef } from "react";
+import SortControlRow from "./small-screen/SortControlRow";
+import SortControlPanel from "./SortControlPanel";
+import VizControlPanel from "./VizControlPanel";
+import ActionControlRow from "./small-screen/ActionControlRow";
+import BlockContext from "../store/blockContext";
+import SortOrderControlRow from "./large-screen/SortOrderControlRow";
+import LegendIcon from "./LegendIcon";
 
 function MainPanel() {
-  const gameContext = useContext(GameContext);
+  const canvasRef = useRef();
+  const blockContext = useContext(BlockContext);
 
   useEffect(() => {
-    if (gameContext.gameStatus !== "ready") return;
-    const userHeight = gameContext.userCardRef.current?.offsetHeight || 400;
-    console.log(userHeight);
+    const canvas = canvasRef.current;
+    const resizeCanvas = (defaultCall = false) => {
+      canvas.width = Math.min(window.innerWidth * 0.9, 800);
+      canvas.height = Math.min(window.innerHeight * 0.6, 600);
 
-    // Apply max height to all cards
-    if (gameContext.botCardRef.current)
-      gameContext.botCardRef.current.style.height = `${userHeight}px`;
-    if (gameContext.gameCardRef.current)
-      gameContext.gameCardRef.current.style.height = `${userHeight}px`;
-  }, [gameContext.gameStatus]);
+      const canvasCtx = canvas.getContext("2d");
+      canvasCtx.fillStyle = "#000";
+      canvasCtx.fillRect(0, 0, canvas.width, canvas.height);
+      if (!defaultCall) blockContext.generateNewBlocks(canvas);
+    };
+    resizeCanvas(true); // Initial resize
+    window.addEventListener("resize", () => resizeCanvas(false)); // Handle window resize
+    return () =>
+      window.removeEventListener("resize", () => resizeCanvas(false));
+    // eslint-disable-next-line
+  }, []);
+
+  useEffect(() => {
+    blockContext.generateNewBlocks(canvasRef.current);
+    // eslint-disable-next-line
+  }, [blockContext.numberOfBlocks]);
+
+  const startSimulation = () => {
+    blockContext.startSimulation(canvasRef.current);
+  };
+
+  const resetSimulation = () => {
+    blockContext.resetSimulation();
+    blockContext.generateNewBlocks(canvasRef.current);
+  };
 
   return (
-    <div className="inner-grid">
-      <div className="column col1">
-        <UserCard />
-      </div>
-      <div className="column col2">
-        <BotCard />
-      </div>
-      {gameContext.gameStatus && (
-        <div className="column col3">
-          <GameCard />
+    <div className="flex flex-col lg:flex-row bg-black text-white mt-16 justify-center gap-2r">
+      <div className="flex flex-col items-center px-4 gap-1r">
+        <LegendIcon />
+        <canvas
+          id="canvas"
+          ref={canvasRef}
+          className="w-full max-w-800p border-2 border-white rounded-lg"
+        />
+        <div className="hide md:show w-full">
+          <ActionControlRow
+            startSimulation={startSimulation}
+            resetSimulation={resetSimulation}
+          />
         </div>
-      )}
+        <div className="hide md:show w-full">
+          <SortControlRow />
+        </div>
+        <VizControlPanel />
+        <div className="hide md-adjusted:show-block w-full">
+          <SortOrderControlRow />
+        </div>
+      </div>
+      <div className="md:hide w-fit-content flex justify-center items-center px-4">
+        <SortControlPanel
+          startSimulation={startSimulation}
+          resetSimulation={resetSimulation}
+        />
+      </div>
     </div>
   );
 }
