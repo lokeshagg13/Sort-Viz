@@ -426,19 +426,19 @@ let shellSort = (blockSet, descending = false) => {
 
 let getSortingResults = async (blockSet, sortingAlgo, sortingOrder) => {
   switch (sortingAlgo) {
-    case "bubble":
+    case "BUBBLE":
       return bubbleSort(blockSet, sortingOrder === "d");
-    case "selection":
+    case "SELECTION":
       return selectionSort(blockSet, sortingOrder === "d");
-    case "insertion":
+    case "INSERTION":
       return insertionSort(blockSet, sortingOrder === "d");
-    case "merge":
+    case "MERGE":
       return mergeSort(blockSet, sortingOrder === "d");
-    case "quick":
+    case "QUICK":
       return quickSort(blockSet, sortingOrder === "d");
-    case "heap":
+    case "HEAP":
       return heapSort(blockSet, sortingOrder === "d");
-    case "shell":
+    case "SHELL":
       return shellSort(blockSet, sortingOrder === "d");
     default:
       return bubbleSort(blockSet, sortingOrder === "d");

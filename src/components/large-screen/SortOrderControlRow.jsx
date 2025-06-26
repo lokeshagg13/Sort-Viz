@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import constants from "../../store/constants";
+import appConfig from "../../logic/config";
 import BlockContext from "../../store/blockContext";
 
 function SortOrderControlRow() {
@@ -22,9 +22,9 @@ function SortOrderControlRow() {
         disabled={blockContext.simStatus !== "ready"}
         required
       >
-        {constants.sortingOrders.map((order) => (
+        {appConfig.SORTING_ORDER_OPTIONS.map((order) => (
           <option value={order} key={order}>
-            {order === "a" ? "Ascending" : "Descending"}
+            {order.charAt(0) + order.slice(1).toLowerCase()}
           </option>
         ))}
       </select>

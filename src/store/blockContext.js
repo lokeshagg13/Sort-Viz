@@ -1,15 +1,15 @@
 import { createContext, useState, useRef } from "react";
 
-import constants from "./constants.js";
+import appConfig from "../logic/config.js";
 import BlockSet from "../logic/blockset.js";
 import getSortingResults from "../logic/sort.js";
 import { getAnimationIntervalTime, createColorArray } from "../logic/viz.js";
 
 const BlockContext = createContext({
-  numberOfBlocks: constants.numBlockValues[0],
-  speed: constants.speedValues[constants.speedValues.length - 1],
-  sortingAlgo: constants.sortingAlgos[0],
-  sortingOrder: constants.sortingOrders[0],
+  numberOfBlocks: appConfig.NUM_BLOCKS_OPTIONS[0],
+  speed: appConfig.SPEED_OPTIONS[appConfig.SPEED_OPTIONS.length - 1],
+  sortingAlgo: appConfig.SORTING_ALGO_OPTIONS[0],
+  sortingOrder: appConfig.SORTING_ALGO_OPTIONS[0],
   highlightPivot: false,
   simStatus: "ready",
   blockSet: new BlockSet(),
@@ -25,11 +25,11 @@ const BlockContext = createContext({
 });
 
 export function BlockContextProvider(props) {
-  const [numberOfBlocks, setNumberOfBlocks] = useState(constants.numBlockValues[0]);
-  const [speed, setSpeed] = useState(constants.speedValues[constants.speedValues.length - 1]);
-  const [sortingAlgo, setSortingAlgo] = useState(constants.sortingAlgos[0]);
-  const [sortingOrder, setSortingOrder] = useState(constants.sortingOrders[0]);
-  const [highlightPivot, setHighlightPivot] = useState(["quick", "heap"].includes(constants.sortingAlgos[0]));
+  const [numberOfBlocks, setNumberOfBlocks] = useState(appConfig.NUM_BLOCKS_OPTIONS[0]);
+  const [speed, setSpeed] = useState(appConfig.SPEED_OPTIONS[appConfig.SPEED_OPTIONS.length - 1]);
+  const [sortingAlgo, setSortingAlgo] = useState(appConfig.SORTING_ALGO_OPTIONS[0]);
+  const [sortingOrder, setSortingOrder] = useState(appConfig.SORTING_ALGO_OPTIONS[0]);
+  const [highlightPivot, setHighlightPivot] = useState(["QUICK", "HEAP"].includes(appConfig.SORTING_ALGO_OPTIONS[0]));
   const [simStatus, setSimStatus] = useState("ready");
   const [blockSet, setBlockSet] = useState(new BlockSet());
 
@@ -37,29 +37,30 @@ export function BlockContextProvider(props) {
 
   function changeNumberOfBlocks(newValue) {
     newValue = parseInt(newValue);
-    if (!(constants.numBlockValues.includes(newValue))) {
+    if (!(appConfig.NUM_BLOCKS_OPTIONS.includes(newValue))) {
       return;
     }
     setNumberOfBlocks(newValue);
   }
 
   function changeSpeed(newValue) {
-    if (!(constants.speedValues.includes(newValue))) {
+    if (!(appConfig.SPEED_OPTIONS.includes(newValue))) {
       return;
     }
     setSpeed(newValue);
   }
 
   function changeSortingAlgo(newValue) {
-    if (!(constants.sortingAlgos.includes(newValue))) {
+    console.log(newValue)
+    if (!(Object.values(appConfig.SORTING_ALGO_OPTIONS).includes(newValue))) {
       return;
     }
     setSortingAlgo(newValue);
-    setHighlightPivot(["quick", "heap"].includes(newValue));
+    setHighlightPivot(["QUICK", "HEAP"].includes(newValue));
   }
 
   function changeSortingOrder(newValue) {
-    if (!(constants.sortingOrders.includes(newValue))) {
+    if (!(appConfig.SORTING_ORDER_OPTIONS.includes(newValue))) {
       return;
     }
     setSortingOrder(newValue);
@@ -94,16 +95,16 @@ export function BlockContextProvider(props) {
   }
 
   function createEndingAnimation(canvas, lastSortSequence) {
-    let beginFromBack = ["insertion", "quick", "heap"].includes(sortingAlgo);
+    let beginFromBack = ["INSERTION", "QUICK", "HEAP"].includes(sortingAlgo);
     let greenCounter = 0;
     let canvasContext = canvas.getContext("2d");
     sortingInterval.current = setInterval(() => {
       if (greenCounter <= numberOfBlocks) {
         let colorArray;
         if (beginFromBack) {
-          colorArray = Array(numberOfBlocks - greenCounter).fill(constants.colors.yellow).concat(Array(greenCounter).fill(constants.colors.green));
+          colorArray = Array(numberOfBlocks - greenCounter).fill(appConfig.COLORS.YELLOW).concat(Array(greenCounter).fill(appConfig.COLORS.GREEN));
         } else {
-          colorArray = Array(greenCounter).fill(constants.colors.green).concat(Array(numberOfBlocks - greenCounter).fill(constants.colors.yellow));
+          colorArray = Array(greenCounter).fill(appConfig.COLORS.GREEN).concat(Array(numberOfBlocks - greenCounter).fill(appConfig.COLORS.YELLOW));
         }
         canvasContext.clearRect(0, 0, canvas.width, canvas.height);
         lastSortSequence.drawBlocks(canvasContext, colorArray);

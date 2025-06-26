@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import constants from "../store/constants";
+import appConfig from "../logic/config";
 import BlockContext from "../store/blockContext";
 
 const VizControlPanel = () => {
@@ -20,7 +20,7 @@ const VizControlPanel = () => {
           disabled={blockContext.simStatus !== "ready"}
           required
         >
-          {constants.numBlockValues.map((n) => (
+          {appConfig.NUM_BLOCKS_OPTIONS.map((n) => (
             <option value={n} key={n}>
               {n}
             </option>
@@ -44,9 +44,9 @@ const VizControlPanel = () => {
           disabled={blockContext.simStatus !== "ready"}
           required
         >
-          {constants.sortingOrders.map((order) => (
+          {appConfig.SORTING_ORDER_OPTIONS.map((order) => (
             <option value={order} key={order}>
-              {order === "a" ? "Ascending" : "Descending"}
+              {order.charAt(0) + order.slice(1).toLowerCase()}
             </option>
           ))}
         </select>
@@ -65,9 +65,9 @@ const VizControlPanel = () => {
           disabled={blockContext.simStatus !== "ready"}
           required
         >
-          {constants.speedValues.map((speed) => (
+          {appConfig.SPEED_OPTIONS.map((speed) => (
             <option value={speed} key={speed}>
-              {speed === "s" ? "Slow" : speed === "m" ? "Medium" : "Fast"}
+              {speed.charAt(0) + speed.slice(1).toLowerCase()}
             </option>
           ))}
         </select>

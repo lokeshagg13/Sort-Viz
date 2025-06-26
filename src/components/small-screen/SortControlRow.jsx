@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import constants from "../../store/constants";
+import appConfig from "../../logic/config";
 import BlockContext from "../../store/blockContext";
 
 function SortControlRow() {
@@ -23,9 +23,9 @@ function SortControlRow() {
           disabled={blockContext.simStatus !== "ready"}
           required
         >
-          {constants.sortingAlgos.map((type) => (
-            <option value={type} key={type}>
-              {type.charAt(0).toUpperCase() + type.slice(1)} Sort
+          {appConfig.SORTING_ALGO_OPTIONS.map((algo) => (
+            <option value={algo} key={algo}>
+              {algo.charAt(0) + algo.slice(1).toLowerCase()} Sort
             </option>
           ))}
         </select>
@@ -46,9 +46,9 @@ function SortControlRow() {
           disabled={blockContext.simStatus !== "ready"}
           required
         >
-          {constants.sortingOrders.map((order) => (
+          {appConfig.SORTING_ORDER_OPTIONS.map((order) => (
             <option value={order} key={order}>
-              {order === "a" ? "Ascending" : "Descending"}
+              {order.charAt(0) + order.slice(1).toLowerCase()}
             </option>
           ))}
         </select>

@@ -22,7 +22,7 @@ function LegendIcon() {
                   </td>
                   <td className="pl-3">Compared Blocks</td>
                 </tr>
-                {["quick", "heap"].includes(blockContext.sortingAlgo) && (
+                {["QUICK", "HEAP"].includes(blockContext.sortingAlgo) && (
                   <tr>
                     <td>
                       <div className="w-5 h-5 bg-blue border-1 border-gray" />

@@ -9,10 +9,10 @@ class Block {
 
   draw(ctx, color) {
     ctx.save();
-    ctx.fillStyle = color.fillStyle;
+    ctx.fillStyle = color.FILL_STYLE;
     ctx.fillRect(this.x, this.y, this.width, this.height);
     ctx.lineWidth = 0.5;
-    ctx.strokeStyle = color.borderStyle;
+    ctx.strokeStyle = color.BORDER_STYLE;
     ctx.strokeRect(this.x, this.y, this.width, this.height);
     ctx.restore();
   }

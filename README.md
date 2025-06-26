@@ -40,7 +40,8 @@ Sort Viz/
 │   │   ├── sort.js                 # Sorting algorithm logic
 │   │   ├── viz.js                  # Animation and visualization helpers
 │   │   ├── block.js                # Block (visual unit) class
-│   │   └── blockset.js             # Manages set of blocks and drawing logic
+│   │   ├── blockset.js             # Manages set of blocks and drawing logic
+│   │   └── config.js               # Configuring the app           
 │   ├── components/
 │   │   ├── MainPanel.jsx           # Main canvas and layout panel
 │   │   ├── VizControlPanel.jsx     # Controls for speed and size
@@ -50,8 +51,7 @@ Sort Viz/
 │   │   │   └── ActionControlRow.jsx
 │   │   └── large-screen/
 │   │       └── SortOrderControlRow.jsx
-│   ├── store/
-│   │   ├── constants.js            # Shared constants (speeds, options)
+│   ├── store/          
 │   │   └── blockContext.js         # Global state/context for simulation
 ```
 
@@ -96,7 +96,14 @@ npm start
 
 ---
 
-## 📄 License
+## 📜 License
 
-MIT License
-© 2025 Lokesh Aggarwal
+This project is licensed under the [MIT License](LICENSE).
+
+---
+
+## 🌟 Acknowledgments
+
+- 🙏 Inspired by this [youtube video](https://www.youtube.com/watch?v=kPRA0W1kECg)
+
+Thank You

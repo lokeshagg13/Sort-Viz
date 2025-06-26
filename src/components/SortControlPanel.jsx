@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import constants from "../store/constants";
+import appConfig from "../logic/config";
 import BlockContext from "../store/blockContext";
 import loaderImage from "../images/loader.gif";
 
@@ -17,18 +17,18 @@ const SortControlPanel = ({ startSimulation, resetSimulation }) => {
       className="flex flex-col bg-gray-900 rounded-lg shadow-md w-fit-content h-full justify-evenly"
     >
       <div className="flex flex-col gap-1r">
-        {constants.sortingAlgos.map((type) => (
-          <label key={type} className="flex items-center gap-10">
+        {appConfig.SORTING_ALGO_OPTIONS.map((algo) => (
+          <label key={algo} className="flex items-center gap-10 text-xl">
             <input
               type="radio"
               name="sortingAlgorithm"
-              value={type}
+              value={algo}
               className="accent-green-500 scale-125 disabled-radio"
-              checked={blockContext.sortingAlgo === type}
+              checked={blockContext.sortingAlgo === algo}
               onChange={(e) => blockContext.changeSortingAlgo(e.target.value)}
               disabled={blockContext.simStatus !== "ready"}
             />
-            <span>{type.charAt(0).toUpperCase() + type.slice(1)} Sort</span>
+            <span>{algo.charAt(0) + algo.slice(1).toLowerCase()} Sort</span>
           </label>
         ))}
       </div>

@@ -13,20 +13,12 @@ function MainPanel() {
 
   useEffect(() => {
     const canvas = canvasRef.current;
-    const resizeCanvas = (defaultCall = false) => {
-      canvas.width = Math.min(window.innerWidth * 0.9, 800);
-      canvas.height = Math.min(window.innerHeight * 0.6, 600);
+    canvas.width = Math.min(window.innerWidth * 0.9, 800);
+    canvas.height = Math.min(window.innerHeight * 0.6, 600);
 
-      const canvasCtx = canvas.getContext("2d");
-      canvasCtx.fillStyle = "#000";
-      canvasCtx.fillRect(0, 0, canvas.width, canvas.height);
-      if (!defaultCall) blockContext.generateNewBlocks(canvas);
-    };
-    resizeCanvas(true); // Initial resize
-    window.addEventListener("resize", () => resizeCanvas(false)); // Handle window resize
-    return () =>
-      window.removeEventListener("resize", () => resizeCanvas(false));
-    // eslint-disable-next-line
+    const canvasCtx = canvas.getContext("2d");
+    canvasCtx.fillStyle = "#000";
+    canvasCtx.fillRect(0, 0, canvas.width, canvas.height);
   }, []);
 
   useEffect(() => {
