@@ -1,4 +1,4 @@
-const constants = {
+const config = {
     NUM_BLOCKS_OPTIONS: [25, 50, 75, 100, 200],
     SPEED_OPTIONS: ["SLOW", "MEDIUM", "FAST"],
     SORTING_ALGO_OPTIONS: ["BUBBLE", "INSERTION", "SELECTION", "MERGE", "QUICK", "HEAP", "SHELL"],
@@ -69,4 +69,4 @@ const constants = {
     }
 }
 
-export default constants;
+export default config;
