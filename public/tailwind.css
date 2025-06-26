@@ -890,6 +890,12 @@
     --tw-tracking: var(--tracking-wide);
     letter-spacing: var(--tracking-wide);
   }
+  .text-gray {
+    color: #ccc;
+  }
+  .text-purple {
+    color: #bb86fc;
+  }
   .text-gray-400 {
     color: var(--color-gray-400);
   }
