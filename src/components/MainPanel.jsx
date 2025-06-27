@@ -36,7 +36,7 @@ function MainPanel() {
   };
 
   return (
-    <div className="flex flex-col lg:flex-row bg-black text-white mt-16 justify-center gap-2r">
+    <div className="flex-1 flex flex-col lg:flex-row bg-black text-white mt-16 justify-center gap-2r">
       <div className="flex flex-col items-center px-4 gap-1r">
         <LegendIcon />
         <canvas
